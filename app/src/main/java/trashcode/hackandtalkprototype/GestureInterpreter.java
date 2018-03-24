@@ -1,5 +1,6 @@
 package trashcode.hackandtalkprototype;
 
+import android.util.Log;
 import java.util.ArrayList;
 
 final class GestureInterpreter {
@@ -18,7 +19,7 @@ final class GestureInterpreter {
         for(int i = 0; i < values.length; i++) {
             values[i] = (float)Math.ceil(values[i]);
         }
-        //chatActivity.debugGesture(values[0] + " " + values[1] + " " + values[2]);
+        Log.d("V", (values[0] + " " + values[1] + " " + values[2]));
         for(GestureAnalyzer gestureAnalyzer : gestureAnalyzers) {
             gestureAnalyzer.update(values);
         }
@@ -83,7 +84,7 @@ final class GestureInterpreter {
 
         final float MIN_RANGE = 8.0f;
         final float MAX_RANGE = 11.0f;
-        final int MINIMAL_OCCURRENCES = 50;
+        final int MINIMAL_OCCURRENCES = 80;
 
         private boolean pointingRight;
         private int occurrences;
