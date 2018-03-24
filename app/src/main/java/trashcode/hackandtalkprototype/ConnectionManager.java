@@ -15,19 +15,10 @@ final class ConnectionManager {
     ConnectionManager(ChatActivity chatActivity) {
         this.chatActivity = chatActivity;
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url("ws://192.168.43.252:5678").build();
+        Request request = new Request.Builder().url("ws://192.168.8.158:5678/chat").build();
         EchoWebSocketListener listener = new EchoWebSocketListener();
         ws = client.newWebSocket(request, listener);
         client.dispatcher().executorService().shutdown();
-    }
-
-    private void output(final String message) {
-        chatActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                chatActivity.addMessage(message);
-            }
-        });
     }
 
     void sendMessage(String message) {
@@ -39,30 +30,28 @@ final class ConnectionManager {
 
         @Override
         public void onOpen(WebSocket webSocket, Response response) {
-            webSocket.send("HUBERT TEST");
             webSocket.send(ByteString.decodeHex("deadbeef"));
-            webSocket.close(NORMAL_CLOSURE_STATUS, "Goodbye !");
         }
 
         @Override
         public void onMessage(WebSocket webSocket, String text) {
-            output("Receiving : " + text);
+
         }
 
         @Override
         public void onMessage(WebSocket webSocket, ByteString bytes) {
-            output("Receiving bytes : " + bytes.hex());
+
         }
 
         @Override
         public void onClosing(WebSocket webSocket, int code, String reason) {
             webSocket.close(NORMAL_CLOSURE_STATUS, null);
-            output("Closing : " + code + " / " + reason);
+
         }
 
         @Override
         public void onFailure(WebSocket webSocket, Throwable t, Response response) {
-            output("Error : " + t.getMessage());
+
         }
     }
 }

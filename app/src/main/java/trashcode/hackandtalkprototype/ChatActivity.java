@@ -24,6 +24,7 @@ public class ChatActivity extends Activity {
             public void onClick(View view) {
                 EditText messageEditText = findViewById(R.id.messageEditText);
                 connectionManager.sendMessage(messageEditText.getText().toString());
+                messageEditText.setText("");
             }
         });
     }
@@ -32,19 +33,14 @@ public class ChatActivity extends Activity {
         TextView gestureDetectorTextView = findViewById(R.id.gestureDetectorTextView);
         switch (gesture) {
             case WAVE:
-                gestureDetectorTextView.setText(getString(R.string.gesture_wave));
+                connectionManager.sendMessage(getString(R.string.gesture_wave));
                 break;
             case POINT_RIGHT:
-                gestureDetectorTextView.setText(getString(R.string.gesture_point_right));
+                connectionManager.sendMessage(getString(R.string.gesture_point_right));
                 break;
             case POINT_LEFT:
-                gestureDetectorTextView.setText(getString(R.string.gesture_point_left));
+                connectionManager.sendMessage(getString(R.string.gesture_point_left));
                 break;
         }
-    }
-
-    void addMessage(String message) {
-        EditText messageEditText = findViewById(R.id.messageEditText);
-        messageEditText.append(message);
     }
 }

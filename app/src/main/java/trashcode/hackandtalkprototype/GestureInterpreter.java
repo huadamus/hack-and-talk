@@ -31,7 +31,7 @@ final class GestureInterpreter {
 
     private class WaveGesture implements GestureAnalyzer {
 
-        final float MAX_RANGE = 2.0f;
+        final float MAX_RANGE = 3.0f;
         final int MINIMAL_OCCURRENCES = 3;
 
         private float[] values = new float[3];
