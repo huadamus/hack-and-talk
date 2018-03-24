@@ -1,7 +1,11 @@
 <resources>
-    <string name="app_name">HackAndTalk Prototype</string>
+    <string name="app_name">TalkAndHack Messenger</string>
     <string name="gesture_wave">👋</string>
     <string name="gesture_point_right">👉</string>
     <string name="gesture_point_left">👈</string>
+    <string name="gesture_rotation">🌍</string>
+    <string name="gesture_diagonal">🤔</string>
+    <string name="text_view_login">Please type your username.</string>
+    <string name="button_login">Login</string>
     <string name="button_send">Send</string>
 </resources>

@@ -1,5 +1,9 @@
 package trashcode.hackandtalkprototype;
 
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -21,6 +25,17 @@ final class ConnectionManager {
         client.dispatcher().executorService().shutdown();
     }
 
+    void login(String name) {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("name", name);
+            ws.send(json.toString());
+        }
+        catch(JSONException je) {
+            je.printStackTrace();
+        }
+    }
+
     void sendMessage(String message) {
         ws.send(message);
     }
@@ -30,12 +45,17 @@ final class ConnectionManager {
 
         @Override
         public void onOpen(WebSocket webSocket, Response response) {
-            webSocket.send(ByteString.decodeHex("deadbeef"));
+
         }
 
         @Override
         public void onMessage(WebSocket webSocket, String text) {
-
+            try {
+                JSONObject message = new JSONObject(text);
+                chatActivity.addMessage(message.getString("sender") + ": " + message.getString("userMessage"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
         @Override
@@ -46,7 +66,6 @@ final class ConnectionManager {
         @Override
         public void onClosing(WebSocket webSocket, int code, String reason) {
             webSocket.close(NORMAL_CLOSURE_STATUS, null);
-
         }
 
         @Override
