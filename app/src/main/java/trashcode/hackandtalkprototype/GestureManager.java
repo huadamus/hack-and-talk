@@ -7,19 +7,21 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
 final class GestureManager implements SensorEventListener {
-    private SensorManager mSensorManager;
 
-    GestureManager(Context context) {
-        mSensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
-        assert mSensorManager != null;
-        if(mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
+    private final GestureInterpreter gestureInterpreter;
 
-        }
+    GestureManager(ChatActivity chatActivity) {
+        SensorManager sensorManager = (SensorManager) chatActivity.getSystemService(Context.SENSOR_SERVICE);
+        assert sensorManager != null;
+        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), 500);
+        this.gestureInterpreter = new GestureInterpreter(chatActivity);
     }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-
+        if(sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            gestureInterpreter.analyzeValues(sensorEvent.values);
+        }
     }
 
     @Override
