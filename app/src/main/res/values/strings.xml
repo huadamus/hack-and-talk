@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">HackAndTalkPrototype</string>
+    <string name="gesture_wave">Wave</string>
+    <string name="gesture_point_right">Point right</string>
+    <string name="gesture_point_left">Point left</string>
+
+</resources>
